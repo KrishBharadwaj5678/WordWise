@@ -15,7 +15,7 @@ word=st.text_input("Enter your word")
 btn=st.button("Find")
 
 if btn:
-    word = f"{word}"
+    word = f"{word.strip()}"
     api_url = 'https://api.api-ninjas.com/v1/thesaurus?word={}'.format(word)
     response = requests.get(api_url, headers={'X-Api-Key': '2jWCY0dASiPZc7RLybXvXA==R9oC0XPKPWiGJ6k6'})
     if response.status_code == requests.codes.ok:
