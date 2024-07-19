@@ -20,7 +20,6 @@ if btn:
     response = requests.get(api_url, headers={'X-Api-Key': '2jWCY0dASiPZc7RLybXvXA==R9oC0XPKPWiGJ6k6'})
     if response.status_code == requests.codes.ok:
         data=response.json()
-        print(data,end="\n")
         synonyms=[]
         antonyms=[]
         # API Fetching
