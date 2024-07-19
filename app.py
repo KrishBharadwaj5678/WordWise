@@ -20,7 +20,7 @@ if btn:
     response = requests.get(api_url, headers={'X-Api-Key': '2jWCY0dASiPZc7RLybXvXA==R9oC0XPKPWiGJ6k6'})
     if response.status_code == requests.codes.ok:
         data=response.json()
-        st.write(f"<h3 style='color:#FFD700;'>Synonyms of {word}:</h3>",unsafe_allow_html=True)
+        print(data,end="\n")
         synonyms=[]
         antonyms=[]
         # API Fetching
@@ -41,7 +41,18 @@ if btn:
                 syn=syn+synonym+"."
             else:
                 syn=syn+synonym+", "
-        st.write(f"<li style=font-size:22px>{syn}</li>",unsafe_allow_html=True)
+
+        # If data has e.x good, then replace , with .
+        try:
+            if(syn[len(syn)-2]==","):
+                syn=syn[0:len(syn)-2]+"."
+        except:
+            pass
+
+        # If synonyms has data then show this
+        if(len(syn)>=1):
+            st.write(f"<h3 style='color:#FFD700;'>Synonyms of {word}:</h3>",unsafe_allow_html=True)
+            st.write(f"<li style=font-size:22px>{syn}</li>",unsafe_allow_html=True)
 
         # Antonyms
         ant=""
@@ -52,7 +63,17 @@ if btn:
                 ant=ant+antonym+"."
             else:
                 ant=ant+antonym+", "
+
+        try:
+            if(ant[len(ant)-2]==","):
+                ant=ant[0:len(ant)-2]+"."
+        except:
+            pass
+
         # If antonyms has data then show this
         if(len(ant)>=1):
             st.write(f"<h3 style='color:#FFD700;'>Antonyms of {word}:</h3>",unsafe_allow_html=True)
             st.write(f"<li style=font-size:22px>{ant}</li>",unsafe_allow_html=True)
+
+        if(len(syn)==0 and len(ant)==0):
+            st.warning("No Results Available")
